@@ -1,0 +1,8 @@
+{% extends "site_pages/base.html" %}
+{% block content %}
+<article class="article">
+  <div class="prose">
+    {{ page.content_html|safe }}
+  </div>
+</article>
+{% endblock %}

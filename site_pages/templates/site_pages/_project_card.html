@@ -1,0 +1,17 @@
+{% comment %}Shared project card. Expects variable `p`.{% endcomment %}
+<article class="card">
+  <div class="card-body">
+    <h3 class="card-title"><a href="{% url 'site_pages:project_detail' p.slug %}">{{ p.title }}</a></h3>
+    <p class="card-summary">{{ p.summary }}</p>
+    {% if p.tech %}
+      <ul class="tags">
+        {% for t in p.tech %}<li>{{ t }}</li>{% endfor %}
+      </ul>
+    {% endif %}
+  </div>
+  <div class="card-foot">
+    {% if p.links.live %}<a class="card-link" href="{{ p.links.live }}" target="_blank" rel="noopener">Live ↗</a>{% endif %}
+    {% if p.links.github %}<a class="card-link" href="{{ p.links.github }}" target="_blank" rel="noopener">Code ↗</a>{% endif %}
+    <a class="card-link detail" href="{% url 'site_pages:project_detail' p.slug %}">Read →</a>
+  </div>
+</article>

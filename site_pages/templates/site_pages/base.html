@@ -1,0 +1,66 @@
+{% load static %}<!doctype html>
+<html lang="en" data-theme="{{ SITE.theme.default }}">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}{{ title|default:SITE.name }}{% endblock %} · {{ SITE.name }}</title>
+  <meta name="description" content="{{ SITE.label|default:SITE.name }} — portfolio, tutorials, and writing.">
+
+  <link rel="icon" type="image/svg+xml" href="{% static 'site_pages/logo.svg' %}">
+  <link rel="stylesheet" href="{% static 'site_pages/css/main.css' %}">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  {% if SITE.base_url %}<link rel="canonical" href="{{ SITE.base_url }}{{ request.path }}">{% endif %}
+  {% if SITE.base_url %}<link rel="alternate" type="application/json" href="{{ SITE.base_url }}/.well-known/portfolio.json" title="JSON Resume">{% endif %}
+
+  <script type="application/ld+json">{{ PERSON_JSONLD|safe }}</script>
+
+  {% block head %}{% endblock %}
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="site-header">
+    <nav class="nav" aria-label="Primary">
+      <a class="nav-brand" href="{% url 'site_pages:home' %}">
+        <span class="brand-mark">{{ SITE.brand }}</span>
+        <span class="brand-name">{{ SITE.name }}</span>
+      </a>
+
+      <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+
+      <ul class="nav-links" id="nav-links">
+        <li><a href="{% url 'site_pages:home' %}">Home</a></li>
+        {% for s in SITE.sections %}
+          <li><a href="{{ s.url }}">{{ s.label }}</a></li>
+        {% endfor %}
+        <li><a class="cta" href="{% url 'site_pages:resume' %}">Resume ↓</a></li>
+      </ul>
+
+      <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
+        <span class="icon-sun">☀</span>
+        <span class="icon-moon">☾</span>
+      </button>
+    </nav>
+  </header>
+
+  <main id="main" class="content">
+    {% block content %}{% endblock %}
+  </main>
+
+  <footer class="site-footer">
+    <div class="footer-inner">
+      <p>© {% now "Y" %} {{ SITE.name }}. Built with Django + Markdown.</p>
+      <ul class="social">
+        {% for network, url in SITE.links.items %}
+          <li><a href="{{ url }}" target="_blank" rel="noopener">{{ network|title }}</a></li>
+        {% endfor %}
+      </ul>
+    </div>
+  </footer>
+
+  <script src="{% static 'site_pages/js/theme.js' %}" defer></script>
+  <script src="{% static 'site_pages/js/nav.js' %}" defer></script>
+</body>
+</html>

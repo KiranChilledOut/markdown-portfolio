@@ -1,0 +1,28 @@
+# site.yml — the ONLY file you edit to make this site yours.
+# Copy this to site.yml and fill in your details. Change it, push, done.
+
+name: "Your Name"
+label: "Your tagline here"
+location: "Your City"                          # omit the line to hide location
+email: null                                    # set an address to surface it; null hides it
+base_url: "https://yourname.pythonanywhere.com"
+
+links:
+  github: "https://github.com/your-handle"
+  linkedin: "https://www.linkedin.com/in/your-handle/"
+
+resume:
+  path: "site_pages/resume.pdf"                # put your PDF at site_pages/static/site_pages/resume.pdf
+  download_name: "Your-Name-Resume.pdf"
+
+brand: "•"                                     # nav mark (any emoji/text)
+theme:
+  default: "auto"                              # "light" | "dark" | "auto"
+
+# Which sections show in the nav, in this order. Remove a line to hide that
+# section from your site. Set a custom label to rename it (e.g. Blog -> Writing).
+sections:
+  - { kind: projects,  label: "Projects" }
+  - { kind: tutorials, label: "Tutorials" }
+  - { kind: blog,      label: "Blog" }
+  - { kind: about,     label: "About" }

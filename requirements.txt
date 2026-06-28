@@ -1,0 +1,7 @@
+Django>=5.1,<5.2
+gunicorn>=22
+whitenoise>=6.5
+Markdown>=3.5
+PyYAML>=6.0
+Pygments>=2.16
+Pillow>=10.2

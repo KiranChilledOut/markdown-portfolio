@@ -1,0 +1,23 @@
+{% extends "site_pages/base.html" %}
+{% block content %}
+<section class="page-head">
+  <h1>Blog</h1>
+  <p>Notes, ideas, and write-ups.</p>
+</section>
+
+{% if items %}
+<ul class="post-list">
+  {% for post in items %}
+    <li>
+      <a href="{% url 'site_pages:blog_detail' post.slug %}">
+        <span class="post-date">{{ post.date|date:"Y-m-d" }}</span>
+        <span class="post-title">{{ post.title }}</span>
+        <span class="post-summary">{{ post.summary }}</span>
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+{% else %}
+  <p class="empty-state">No posts yet. Add a markdown file under <code>content/blog/</code>.</p>
+{% endif %}
+{% endblock %}

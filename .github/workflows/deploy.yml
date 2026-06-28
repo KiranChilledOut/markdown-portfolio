@@ -1,0 +1,69 @@
+name: Deploy to PythonAnywhere
+
+# On every push to main, run the test suite + static collection locally in CI,
+# then drive a pull/migrate/collectstatic/reload on PythonAnywhere via the API.
+# Configure the four secrets below in the repo settings (Settings → Secrets).
+#
+#   PA_USERNAME   your PythonAnywhere username
+#   PA_API_TOKEN  API token from the PythonAnywhere Account page
+#   PA_DOMAIN     e.g. yourname.pythonanywhere.com (or your custom domain)
+#   PA_REPO_PATH  absolute path to the repo on the PA host, e.g. /home/user/repo
+
+on:
+  push:
+    branches: [main, master]
+  workflow_dispatch:
+
+concurrency:
+  group: pa-deploy
+  cancel-in-progress: false
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+      - run: pip install -r requirements.txt
+      - name: Django checks
+        env:
+          DJANGO_DEBUG: "1"
+          DJANGO_ALLOWED_HOSTS: "localhost,127.0.0.1"
+          DJANGO_SECRET_KEY: ci-dummy-secret-key-not-used-in-prod-1234567890
+        run: |
+          python manage.py check
+          python manage.py check --deploy
+      - name: Tests
+        env:
+          DJANGO_DEBUG: "1"
+          DJANGO_ALLOWED_HOSTS: "localhost,127.0.0.1"
+          DJANGO_SECRET_KEY: ci-dummy-secret-key-not-used-in-prod-1234567890
+        run: python manage.py test site_pages
+      - name: Collect static (validates static pipeline)
+        env:
+          DJANGO_DEBUG: "1"
+          DJANGO_ALLOWED_HOSTS: "localhost,127.0.0.1"
+          DJANGO_SECRET_KEY: ci-dummy-secret-key-not-used-in-prod-1234567890
+        run: python manage.py collectstatic --noinput
+
+  deploy:
+    needs: test
+    runs-on: ubuntu-latest
+    # Only deploy when the API token secret is configured. Forks without secrets
+    # skip deploy gracefully (they still benefit from the test/static checks).
+    if: ${{ secrets.PA_API_TOKEN != '' }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Deploy to PythonAnywhere
+        env:
+          PA_USERNAME: ${{ secrets.PA_USERNAME }}
+          PA_API_TOKEN: ${{ secrets.PA_API_TOKEN }}
+          PA_DOMAIN: ${{ secrets.PA_DOMAIN }}
+          PA_REPO_PATH: ${{ secrets.PA_REPO_PATH }}
+        run: python scripts/pa_deploy.py
