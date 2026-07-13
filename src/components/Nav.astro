@@ -1,0 +1,51 @@
+---
+import { SITE, url } from "../config";
+---
+<nav class="nav" aria-label="Primary">
+  <a class="nav-brand" href={url("/")}>
+    <span class="brand-mark">{SITE.brand}</span>
+    <span class="brand-name">{SITE.name}</span>
+  </a>
+
+  <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-links">
+    <span></span><span></span><span></span>
+  </button>
+
+  <ul class="nav-links" id="nav-links">
+    <li><a href={url("/")}>Home</a></li>
+    {SITE.sections.map((s) => (
+      <li><a href={s.url}>{s.label}</a></li>
+    ))}
+    <li><a class="cta" href={url("/resume/")}>Resume ↓</a></li>
+  </ul>
+
+  <button class="theme-toggle" aria-label="Toggle dark mode" title="Toggle theme">
+    <span class="icon-sun">☀</span>
+    <span class="icon-moon">☾</span>
+  </button>
+</nav>
+
+<script>
+  // Mobile hamburger toggle + theme toggle. Initial theme is applied before
+  // paint by the inline script in Base.astro.
+  document.addEventListener("DOMContentLoaded", () => {
+    const toggle = document.querySelector(".nav-toggle");
+    const links = document.getElementById("nav-links");
+    if (toggle && links) {
+      toggle.addEventListener("click", () => {
+        const open = links.classList.toggle("open");
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      });
+    }
+    const themeBtn = document.querySelector(".theme-toggle");
+    if (themeBtn) {
+      themeBtn.addEventListener("click", () => {
+        const root = document.documentElement;
+        const current = root.getAttribute("data-theme") === "dark" ? "dark" : "light";
+        const next = current === "dark" ? "light" : "dark";
+        root.setAttribute("data-theme", next);
+        try { localStorage.setItem("mp-theme", next); } catch (e) {}
+      });
+    }
+  });
+</script>

@@ -1,26 +1,65 @@
-# site.yml — the ONLY file you edit to make this site yours.
-# Copy this to site.yml and fill in your details. Change it, push, done.
+# site.yml — the only file you edit to make this site yours.
+# Copy this file to `site.yml` (same folder, same contents) and fill in your
+# details. Every page is rendered from this single file plus the Markdown in
+# `content/`.
+#
+#   cp site.yml.example site.yml
+#
+# All profile fields below `links:` are OPTIONAL. Omit any array/field and the
+# home page simply doesn't render that section — so you can start from an
+# empty profile and add blocks incrementally.
 
 name: "Your Name"
-label: "Your tagline here"
-location: "Your City"                          # omit the line to hide location
-email: null                                    # set an address to surface it; null hides it
-base_url: "https://yourname.pythonanywhere.com"
+label: "Your tagline here"                         # hero subtitle
+role: "Your role"                                  # shown under your name
+location: "Your City"                              # omit the line to hide location
+email: null                                        # set an address to surface it; null hides it
+base_url: "https://your-user.github.io/your-repo/" # canonical origin (used in SEO/schema)
 
-links:
+links:                                             # anything you leave blank is hidden
   github: "https://github.com/your-handle"
   linkedin: "https://www.linkedin.com/in/your-handle/"
+  website: "https://your-site.example"
 
 resume:
-  path: "site_pages/resume.pdf"                # put your PDF at site_pages/static/site_pages/resume.pdf
+  path: "/resume.pdf"                              # served from public/resume.pdf — replace with your own PDF
   download_name: "Your-Name-Resume.pdf"
 
-brand: "•"                                     # nav mark (any emoji/text)
+brand: "•"                                         # nav mark (any emoji or short text)
 theme:
-  default: "auto"                              # "light" | "dark" | "auto"
+  default: "auto"                                  # "light" | "dark" | "auto"
 
-# Which sections show in the nav, in this order. Remove a line to hide that
-# section from your site. Set a custom label to rename it (e.g. Blog -> Writing).
+# Optional profile blocks (home page) ----------------------------------------
+# Remove or leave empty any block you don't want — the template just skips it.
+
+focus:                                             # chip row under the hero
+  - What you focus on
+  - In 2–6 one-liners
+
+tech:                                              # tech badges (built from simple-icons slugs)
+  - { name: TypeScript,  slug: typescript }
+  - { name: Node,        slug: nodedotjs }
+  - { name: Python,      slug: python }
+
+principles:                                        # short craft beliefs
+  - One short principle per line
+  - Build simple systems first
+
+time_on:                                           # {label, level: 0–10} — what you spend time on
+  - { label: "Building",     level: 10 }
+  - { label: "Writing",      level: 8  }
+
+exploring:                                         # {label, level: 0–10} — what you're exploring
+  - { label: "Something new", level: 7 }
+
+currently_building:                                # free-text list
+  - A couple of things you're shipping
+
+shaped_thinking:                                   # books / lines that shaped your approach
+  - A book or line you'd recommend
+
+# Which sections appear in the nav, in order. Delete a line to hide that
+# section. Change the label to rename it (e.g. Blog → Writing).
 sections:
   - { kind: projects,  label: "Projects" }
   - { kind: tutorials, label: "Tutorials" }

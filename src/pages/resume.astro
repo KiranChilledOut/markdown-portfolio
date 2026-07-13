@@ -1,0 +1,29 @@
+---
+import Base from "../layouts/Base.astro";
+import { SITE, url } from "../config";
+
+const downloadName = SITE.resume.download_name || "resume.pdf";
+const href = url("/resume.pdf");
+---
+<Base title="Résumé">
+  <section class="page-head">
+    <h1>Résumé</h1>
+    <p>Your résumé should download. If it didn't, use the button below.</p>
+  </section>
+  <p>
+    <a class="btn btn-primary" href={href} download={downloadName}>Download {downloadName} ↓</a>
+  </p>
+  <p class="empty-state">
+    Missing the file? Add your PDF at <code>public/resume.pdf</code>.
+  </p>
+</Base>
+
+<script is:inline define:vars={{ href, downloadName }}>
+  // Trigger the download automatically on load.
+  const a = document.createElement("a");
+  a.href = href;
+  a.download = downloadName;
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+</script>

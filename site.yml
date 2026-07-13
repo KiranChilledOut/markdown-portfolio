@@ -1,0 +1,119 @@
+# site.yml — the only file you edit to make this site yours.
+# Every identity/branding value is read from here by the templates and by the
+# JSON Resume / Schema.org schema generator. Change these, push, done.
+
+# All profile fields below `links:` are OPTIONAL. Omit any array/field and the
+# home page simply doesn't render that section — so a fork can start from an
+# empty profile and add blocks incrementally.
+#
+# Fork this template? See site.yml.example for a blank starter.
+
+name: "Kiran Raj Rajendran"
+label: "Platform Engineer • DevOps • AI Infrastructure • Automation Builder"   # hero tagline
+role: "Platform Engineer"                                            # short role label under name
+location: "Remote"                                                   # omit the line to hide location
+email: kautomate@gmail.com                                           # set an address to surface it; null hides it
+base_url: "https://kiranchilledout.github.io/markdown-portfolio/"   # canonical origin for schema + URLs
+
+links:                                         # footer + schema "profiles"
+  github: "https://github.com/KiranChilledOut"
+  linkedin: "https://www.linkedin.com/in/kiran-raj-37b85b5b/"
+  website: "https://www.sillyjoint.com"
+
+resume:
+  path: "/resume.pdf"                          # served from public/resume.pdf
+  download_name: "Kiran-Raj-Resume.pdf"        # filename served on download
+
+brand: "⌘"                                     # nav mark
+theme:
+  default: "auto"                              # "light" | "dark" | "auto"
+
+# --- Optional profile blocks (home page) ----------------------------------
+# Remove any block you don't want; an empty/omitted array means "don't show".
+
+# One-line focus areas, rendered as chips under the hero.
+focus:
+  - DevOps & Platform Engineering
+  - Azure & Cloud Infrastructure
+  - Infrastructure as Code
+  - AI Infrastructure
+  - AI Agents & Developer Tooling
+  - Observability
+  - Zero Trust & Secure Platforms
+  - Physical AI & Embedded Systems
+  - Automation at Scale
+
+# Tech badges — branded for-the-badge tiles (logo + label on the brand color),
+# rendered from vendored simple-icons paths in src/data/tech-icons.ts.
+# Add `slug:` to map a tech to its brand icon/color (simple-icons slug).
+# Omit slug to render a plain text chip instead.
+tech:
+  - { name: Azure,          slug: microsoftazure }
+  - { name: Azure DevOps,   slug: azuredevops }
+  - { name: Terraform,      slug: terraform }
+  - { name: Kubernetes,      slug: kubernetes }
+  - { name: Docker,          slug: docker }
+  - { name: Linux,           slug: linux }
+  - { name: Python,          slug: python }
+  - { name: PowerShell,      slug: powershell }
+  - { name: Django,          slug: django }
+  - { name: Grafana,         slug: grafana }
+  - { name: Azure IoT,       slug: azureiot }
+  - { name: TeamCity,        slug: teamcity }
+  - { name: GitHub Actions,  slug: githubactions }
+  - { name: Raspberry Pi,    slug: raspberrypi }
+  - { name: ESP32,            slug: espressif }
+
+# Short principles / craft beliefs.
+principles:
+  - Automate repetitive work
+  - Build simple systems first
+  - Understand before optimizing
+  - Security should be built in, not bolted on
+  - Learn by building
+  - Ship early, improve continuously
+  - Keep tools useful, understandable, and boring where it matters
+
+# "What I spend most of my time doing" — {label, level} where level is 0–10.
+time_on:
+  - { label: "Platform Engineering",  level: 10 }
+  - { label: "Cloud Infrastructure",  level: 10 }
+  - { label: "Automation",            level: 10 }
+  - { label: "Terraform",              level: 9  }
+  - { label: "AI Infrastructure",      level: 9  }
+  - { label: "Python",                 level: 9  }
+  - { label: "Kubernetes",             level: 8  }
+  - { label: "Embedded Systems",       level: 8  }
+  - { label: "Developer Tooling",      level: 9  }
+  - { label: "Observability",          level: 8  }
+
+# "Things I'm exploring" — same {label, level} shape.
+exploring:
+  - { label: "AI Agents",          level: 9 }
+  - { label: "Physical AI",        level: 8 }
+  - { label: "ESP32 Builds",        level: 8 }
+  - { label: "DIY Automation",      level: 9 }
+  - { label: "IoT Experiments",     level: 8 }
+  - { label: "Local Tools",         level: 9 }
+  - { label: "Terminal Workflows", level: 9 }
+  - { label: "Edge AI",             level: 8 }
+
+# What I'm currently building.
+currently_building:
+  - Claude-Codex-Nebius Proxy
+  - AI Developer Tooling
+  - Physical AI Experiments
+  - Local-first Productivity Tools
+
+# A few things that shaped my thinking.
+shaped_thinking:
+  - The Pragmatic Programmer
+  - "CODE: The Hidden Language of Computer Hardware and Software"
+
+# Which sections appear in the nav, in this order.
+# Remove a line to hide that section. Set a custom label to rename it.
+sections:
+  - { kind: projects,  label: "Projects" }
+  - { kind: tutorials, label: "Tutorials" }
+  - { kind: blog,      label: "Writing" }
+  - { kind: about,     label: "About" }

@@ -1,0 +1,18 @@
+---
+import Base from "../layouts/Base.astro";
+import { getCollection, render } from "astro:content";
+
+const pages = await getCollection("pages");
+const page = pages.find((e) => e.id === "about");
+if (!page) {
+  throw new Error("About page not found: add content/pages/about.md");
+}
+const { Content } = await render(page);
+---
+<Base title={page.data.title}>
+  <article class="article">
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+</Base>

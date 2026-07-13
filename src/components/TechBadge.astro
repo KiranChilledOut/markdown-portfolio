@@ -1,0 +1,38 @@
+---
+// Branded "for-the-badge" tile: real logo (inline SVG from vendored
+// simple-icons paths) + label on the brand's color. Falls back to a plain
+// text chip when no slug is set or the slug isn't in our vendored map.
+import { TECH_ICONS, type BrandIcon } from "../data/tech-icons";
+import type { TechItem } from "../config";
+
+interface Props {
+  tech: TechItem;
+}
+const { tech } = Astro.props;
+
+const brand: BrandIcon | null =
+  tech.slug && TECH_ICONS[tech.slug] ? TECH_ICONS[tech.slug] : null;
+
+// Decide whether the brand color is too light to put white text on.
+// "Luminance" of the hex; < ~0.6 -> dark text, else white text. This handles
+// Grafana (we override to orange) and any near-white brand a fork might add.
+function luminance(hex: string): number {
+  const h = hex.replace("#", "");
+  const r = parseInt(h.slice(0, 2), 16) / 255;
+  const g = parseInt(h.slice(2, 4), 16) / 255;
+  const b = parseInt(h.slice(4, 6), 16) / 255;
+  return 0.2126 * r + 0.7152 * g + 0.0722 * b;
+}
+const lightText = brand ? luminance(brand.hex) < 0.6 : true;
+const styleVar = brand ? `--badge-bg:${brand.hex};--badge-fg:${lightText ? "#fff" : "#11181c"};` : "";
+const label = tech.name;
+---
+
+{brand ? (
+  <span class="tech-badge" style={styleVar} title={brand.title}>
+    <svg class="tech-badge-logo" viewBox="0 0 24 24" aria-hidden="true" focusable="false" set:html={`<path d="${brand.path}"/>`} />
+    <span class="tech-badge-label">{label}</span>
+  </span>
+) : (
+  <span class="chip chip--mono">{label}</span>
+)}

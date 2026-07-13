@@ -1,0 +1,11 @@
+---
+import Base from "../layouts/Base.astro";
+import { url } from "../config";
+---
+<Base title="Not found">
+  <section class="error">
+    <h1>404</h1>
+    <p>That page doesn't exist — or it's a draft.</p>
+    <a class="btn btn-primary" href={url("/")}>Back home →</a>
+  </section>
+</Base>

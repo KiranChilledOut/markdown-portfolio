@@ -1,0 +1,35 @@
+---
+import Base from "../../layouts/Base.astro";
+import { url } from "../../config";
+import { getCollection } from "astro:content";
+
+const showDrafts = import.meta.env.DEV;
+const posts = (await getCollection("blog"))
+  .filter((e) => showDrafts || !e.data.draft)
+  .sort((a, b) => {
+    const da = a.data.date ? a.data.date.getTime() : 0;
+    const db = b.data.date ? b.data.date.getTime() : 0;
+    return db - da;
+  });
+---
+<Base title="Blog">
+  <section class="page-head">
+    <h1>Blog</h1>
+    <p>Notes, ideas, and write-ups.</p>
+  </section>
+  {posts.length > 0 ? (
+    <ul class="post-list">
+      {posts.map((post) => (
+        <li>
+          <a href={url(`/blog/${post.id}/`)}>
+            <span class="post-date">{post.data.date ? post.data.date.toISOString().slice(0, 10) : ""}</span>
+            <span class="post-title">{post.data.title}</span>
+            <span class="post-summary">{post.data.summary}</span>
+          </a>
+        </li>
+      ))}
+    </ul>
+  ) : (
+    <p class="empty-state">No posts yet. Add a markdown file under <code>content/blog/</code>.</p>
+  )}
+</Base>

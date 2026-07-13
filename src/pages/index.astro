@@ -1,0 +1,181 @@
+---
+import Base from "../layouts/Base.astro";
+import ProjectCard from "../components/ProjectCard.astro";
+import TechBadge from "../components/TechBadge.astro";
+import { SITE, url } from "../config";
+import { getCollection } from "astro:content";
+
+const showDrafts = import.meta.env.DEV;
+const filter = (e: { data: { draft?: boolean } }) => showDrafts || !e.data.draft;
+
+const collections = {
+  projects: (await getCollection("projects")).filter(filter).sort((a, b) => {
+    const da = a.data.date ? a.data.date.getTime() : 0;
+    const db = b.data.date ? b.data.date.getTime() : 0;
+    return db - da;
+  }),
+  blog: (await getCollection("blog")).filter(filter).sort((a, b) => {
+    const da = a.data.date ? a.data.date.getTime() : 0;
+    const db = b.data.date ? b.data.date.getTime() : 0;
+    return db - da;
+  }),
+  tutorials: (await getCollection("tutorials")).filter(filter).sort((a, b) => (a.data.order ?? 0) - (b.data.order ?? 0)),
+};
+
+const featured = {
+  projects: collections.projects.slice(0, 4),
+  blog: collections.blog.slice(0, 3),
+  tutorials: collections.tutorials.slice(0, 5),
+};
+const firstContent = SITE.sections.find((s) => s.isContent) ?? null;
+
+// Bar caption: "level/10" rendered as filled blocks out of 10.
+const bar = (level: number) => "█".repeat(level) + "░".repeat(10 - level);
+const optionalLink = (network: string) => SITE.links?.[network] ?? null;
+---
+
+<Base>
+  <section class="hero profile-hero">
+    <div class="hero-inner">
+      {SITE.role && <p class="hero-eyebrow">Hi, I'm {SITE.name.split(" ")[0]} 👋</p>}
+      <h1 class="hero-title">{SITE.name}</h1>
+      {SITE.role && <p class="hero-role">{SITE.role} • DevOps • AI Infrastructure • Builder</p>}
+      {SITE.label && <p class="hero-sub">{SITE.label}</p>}
+
+      <div class="hero-actions">
+        {firstContent && (
+          <a class="btn btn-primary" href={firstContent.url}>View {firstContent.label.toLowerCase()} →</a>
+        )}
+        <a class="btn btn-ghost" href={url("/resume/")}>Download résumé ↓</a>
+        {optionalLink("github") && (
+          <a class="btn btn-ghost" href={optionalLink("github")} target="_blank" rel="noopener">GitHub ↗</a>
+        )}
+      </div>
+    </div>
+  </section>
+
+  {SITE.focus.length > 0 && (
+    <section class="section">
+      <ul class="chip-list" aria-label="Focus areas">
+        {SITE.focus.map((f) => <li class="chip">{f}</li>)}
+      </ul>
+    </section>
+  )}
+
+  {SITE.tech.length > 0 && (
+    <section class="section">
+      <header class="section-head"><h2>Tech stack</h2></header>
+      <ul class="badge-list" aria-label="Tech stack">
+        {SITE.tech.map((t) => <li><TechBadge tech={t} /></li>)}
+      </ul>
+    </section>
+  )}
+
+  {SITE.principles.length > 0 && (
+    <section class="section">
+      <header class="section-head"><h2>Principles</h2></header>
+      <ul class="principle-list">
+        {SITE.principles.map((p) => <li>{p}</li>)}
+      </ul>
+    </section>
+  )}
+
+  {(SITE.time_on.length > 0 || SITE.exploring.length > 0) && (
+    <section class="section bars-grid">
+      {SITE.time_on.length > 0 && (
+        <div class="bar-block">
+          <h2>What I spend most of my time doing</h2>
+          <dl class="bar-list">
+            {SITE.time_on.map((b) => (
+              <div class="bar-row">
+                <dt>{b.label}</dt>
+                <dd><code>{bar(b.level)}</code></dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
+      {SITE.exploring.length > 0 && (
+        <div class="bar-block">
+          <h2>Things I'm exploring</h2>
+          <dl class="bar-list">
+            {SITE.exploring.map((b) => (
+              <div class="bar-row">
+                <dt>{b.label}</dt>
+                <dd><code>{bar(b.level)}</code></dd>
+              </div>
+            ))}
+          </dl>
+        </div>
+      )}
+    </section>
+  )}
+
+  {SITE.currently_building.length > 0 && (
+    <section class="section">
+      <header class="section-head"><h2>Currently building</h2></header>
+      <ul class="inline-list">
+        {SITE.currently_building.map((c) => <li>{c}</li>)}
+      </ul>
+    </section>
+  )}
+
+  {SITE.shaped_thinking.length > 0 && (
+    <section class="section">
+      <header class="section-head"><h2>A few things that shaped my thinking</h2></header>
+      <ul class="inline-list">
+        {SITE.shaped_thinking.map((s) => <li>{s}</li>)}
+      </ul>
+    </section>
+  )}
+
+  {featured.projects.length > 0 && (
+    <section class="section">
+      <header class="section-head">
+        <h2>Featured projects</h2>
+        <a class="see-all" href={url("/projects/")}>All projects →</a>
+      </header>
+      <div class="grid">
+        {featured.projects.map((p) => <ProjectCard project={p} />)}
+      </div>
+    </section>
+  )}
+
+  {featured.blog.length > 0 && (
+    <section class="section">
+      <header class="section-head">
+        <h2>Latest posts</h2>
+        <a class="see-all" href={url("/blog/")}>All posts →</a>
+      </header>
+      <ul class="post-list">
+        {featured.blog.map((post) => (
+          <li>
+            <a href={url(`/blog/${post.id}/`)}>
+              <span class="post-date">{post.data.date ? post.data.date.toISOString().slice(0, 10) : ""}</span>
+              <span class="post-title">{post.data.title}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+
+  {featured.tutorials.length > 0 && (
+    <section class="section">
+      <header class="section-head">
+        <h2>Recent tutorials</h2>
+        <a class="see-all" href={url("/tutorials/")}>All tutorials →</a>
+      </header>
+      <ul class="tutorial-list">
+        {featured.tutorials.map((t) => (
+          <li>
+            <a href={url(`/tutorials/${t.id}/`)}>
+              <span class="tutorial-title">{t.data.title}</span>
+              <span class="tutorial-summary">{t.data.summary}</span>
+            </a>
+          </li>
+        ))}
+      </ul>
+    </section>
+  )}
+</Base>

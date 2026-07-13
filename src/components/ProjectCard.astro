@@ -1,0 +1,46 @@
+---
+import { url } from "../config";
+import { categoryIcon, categoryClass, statusClass } from "../lib/project-meta";
+
+interface Project {
+  id: string;
+  data: {
+    title: string;
+    summary: string;
+    tech: string[];
+    category?: string;
+    status?: string;
+    links?: { github?: string; live?: string };
+  };
+}
+const { project } = Astro.props as { project: Project };
+const p = project;
+const cat = categoryClass(p.data.category);
+const iconSvg = categoryIcon(p.data.category);
+---
+
+<article class={`card project-card ${cat}`}>
+  <div class="project-card-accent" aria-hidden="true">
+    <div class="project-card-icon" set:html={iconSvg} />
+    {p.data.status && <span class={`project-status ${statusClass(p.data.status)}`}>{p.data.status}</span>}
+  </div>
+  <div class="card-body">
+    <div class="project-card-meta">
+      {p.data.category && <span class="project-category">{p.data.category}</span>}
+      {!p.data.category && p.data.status && <span class="project-spacer" />}
+    </div>
+    <h3 class="card-title"><a href={url(`/projects/${p.id}/`)}>{p.data.title}</a></h3>
+    <p class="card-summary">{p.data.summary}</p>
+    {p.data.tech && p.data.tech.length > 0 && (
+      <ul class="tags project-tags" aria-label="Technologies">
+        {p.data.tech.slice(0, 5).map((t) => <li>{t}</li>)}
+        {p.data.tech.length > 5 && <li>+{p.data.tech.length - 5}</li>}
+      </ul>
+    )}
+  </div>
+  <div class="card-foot project-foot">
+    {p.data.links?.live && <a class="card-link" href={p.data.links.live} target="_blank" rel="noopener">Live ↗</a>}
+    {p.data.links?.github && <a class="card-link" href={p.data.links.github} target="_blank" rel="noopener">Code ↗</a>}
+    <a class="card-link detail" href={url(`/projects/${p.id}/`)}>Read →</a>
+  </div>
+</article>

@@ -1,0 +1,60 @@
+---
+import { SITE, url } from "../config";
+import Nav from "../components/Nav.astro";
+import { personJsonLd } from "../lib/schema";
+import "../styles/main.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+const { title, description } = Astro.props;
+const pageTitle = title ? `${title} · ${SITE.name}` : SITE.name;
+const desc = description || `${SITE.label || SITE.name} — portfolio, tutorials, and writing.`;
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const jsonLd = await personJsonLd(SITE);
+---
+
+<!doctype html>
+<html lang="en" data-theme={SITE.theme.default}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{pageTitle}</title>
+    <meta name="description" content={desc} />
+    <link rel="icon" type="image/svg+xml" href={url("/logo.svg")} />
+    <link rel="canonical" href={canonical} />
+    <link rel="alternate" type="application/json" href={url("/.well-known/portfolio.json")} title="JSON Resume" />
+    <link rel="sitemap" href={url("/sitemap-index.xml")} />
+    <script is:inline>
+      // Apply stored theme BEFORE paint to avoid a flash of the wrong theme.
+      (function () {
+        try {
+          var t = localStorage.getItem("mp-theme");
+          if (!t) t = matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+          document.documentElement.setAttribute("data-theme", t);
+        } catch (e) {}
+      })();
+    </script>
+    <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">Skip to content</a>
+    <header class="site-header">
+      <Nav />
+    </header>
+    <main id="main" class="content">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="footer-inner">
+        <p>© {new Date().getFullYear()} {SITE.name}. Built with Astro + Markdown.</p>
+        <ul class="social">
+          {Object.entries(SITE.links).map(([network, href]) => (
+            <li><a href={href} target="_blank" rel="noopener">{network[0].toUpperCase() + network.slice(1)}</a></li>
+          ))}
+        </ul>
+      </div>
+    </footer>
+  </body>
+</html>
