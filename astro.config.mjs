@@ -4,13 +4,15 @@ import sitemap from "@astrojs/sitemap";
 
 // GitHub Pages serves from a project path (https://<user>.github.io/<repo>/)
 // UNLESS the repo is named <user>.github.io or a custom domain is set.
-// We derive `base` from the repo name so the same config works for forks.
+// We derive `site` and `base` from the repo slug so the same config works
+// for forks without manual edits.
 //
-// Override locally with SITE URL + BASE env vars if needed.
-const SITE = process.env.SITE_URL ?? "https://kiranraj.github.io";
-const repo = process.env.GITHUB_REPOSITORY?.split("/")[1] ?? "personal_portfolio";
+// Override locally with the SITE_URL and BASE env vars if needed.
+const [owner = "kiranchilledout", repo = "markdown-portfolio"] =
+  (process.env.GITHUB_REPOSITORY || "").split("/");
 const isUserPages = repo.endsWith(".github.io");
-const BASE = isUserPages ? "/" : `/${repo}/`;
+const SITE = process.env.SITE_URL ?? `https://${owner.toLowerCase()}.github.io`;
+const BASE = process.env.BASE ?? (isUserPages ? "/" : `/${repo}/`);
 
 // https://astro.build/config
 export default defineConfig({
