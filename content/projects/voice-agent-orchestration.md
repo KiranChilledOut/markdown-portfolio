@@ -7,7 +7,7 @@ date: 2026-06-28
 order: 9
 draft: false
 category: "AI"
-status: "Active"
+status: "Experiment"
 links: {}
 ---
 

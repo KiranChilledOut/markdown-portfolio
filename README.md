@@ -140,6 +140,9 @@ To add your own:
 
 The **Résumé** button on the homepage now downloads your file.
 
+> Prefer to keep your résumé as editable source and generate the PDF with one
+> command? See **"Résumé — edit as HTML, generate the PDF"** below.
+
 ### Step 5 — Enable GitHub Pages
 
 In your repo on GitHub:
@@ -191,7 +194,7 @@ are live — no other commands, no extra infrastructure.
 | A blog post | a file in `content/blog/` |
 | A tutorial | a file in `content/tutorials/` |
 | Your About page | `content/pages/about.md` |
-| Your résumé PDF | `public/resume.pdf` |
+| Your résumé | `resume-src/resume.html` → `npm run resume` (or just upload `public/resume.pdf`) |
 | The site's design, colours, or layout | `src/styles/main.css` and the components in `src/components/` |
 
 ### Show or hide sections
@@ -235,6 +238,32 @@ npm run dev          # http://localhost:4321/<your-repo>/
 `npm run build` produces the static site in `dist/`. The GitHub Actions
 workflow runs exactly the same build, so if it works locally it will work
 on Pages.
+
+---
+
+## Résumé — edit as HTML, generate the PDF (optional)
+
+Instead of hand-exporting a PDF from another tool every time, this repo keeps the
+résumé as an **editable source file** and renders the PDF for you — so it's
+version-controlled and quick to update.
+
+- **Source:** [`resume-src/resume.html`](resume-src/resume.html) — plain HTML; the
+  *Experience*, *Core Skills*, *Certifications* and *Education* blocks are easy to
+  edit (change text, add a job `<div>` or an `<li>`).
+- **Generate:**
+  ```bash
+  npm run resume
+  ```
+  Renders `resume.html` → `public/resume.pdf`. It uses a Chrome/Chromium you
+  already have (Google Chrome, Edge, a `chromium` on `PATH`, or the Playwright
+  cache) — **no extra dependencies**.
+- **Publish:** commit `public/resume.pdf` (and `resume-src/resume.html`) and push —
+  the site redeploys with the new résumé, and the homepage **Résumé** button serves it.
+
+Full details are in **[resume-src/README.md](resume-src/README.md)**.
+
+> Prefer to just drop in a finished PDF from elsewhere? That still works —
+> overwrite `public/resume.pdf` (Step 4) and ignore this section.
 
 ---
 

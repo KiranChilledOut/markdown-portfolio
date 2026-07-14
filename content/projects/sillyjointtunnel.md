@@ -7,7 +7,7 @@ date: 2026-06-28
 order: 7
 draft: false
 category: "IoT"
-status: "Active"
+status: "Experiment"
 links: {}
 ---
 
