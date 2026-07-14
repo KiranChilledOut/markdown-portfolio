@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>Kiran Raj R — Résumé</title>
+<style>
+  :root {
+    --ink: #14181f;
+    --muted: #5b6472;
+    --line: #e3e7ee;
+    --accent: #1f6feb;
+    --accent-dark: #0b3a86;
+    --sidebar: #f5f7fb;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  @page { size: A4; margin: 0; }
+  html, body { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: "Helvetica Neue", Arial, "Segoe UI", system-ui, sans-serif;
+    color: var(--ink);
+    font-size: 10.2px;
+    line-height: 1.45;
+  }
+  .page { width: 210mm; min-height: 297mm; margin: 0 auto; }
+
+  /* Header band */
+  header {
+    padding: 20px 26px 16px;
+    border-bottom: 3px solid var(--accent);
+  }
+  .name { font-size: 30px; font-weight: 800; letter-spacing: .5px; line-height: 1; }
+  .name span { color: var(--accent); }
+  .role { margin-top: 5px; font-size: 12.5px; font-weight: 600; color: var(--accent-dark); letter-spacing: .3px; }
+  .contact { margin-top: 9px; font-size: 9.4px; color: var(--muted); }
+  .contact b { color: var(--ink); font-weight: 600; }
+  .contact span { white-space: nowrap; }
+  .sep { color: var(--line); padding: 0 7px; }
+
+  /* Two-column body */
+  .body { display: grid; grid-template-columns: 63% 37%; }
+  main { padding: 15px 22px 22px 26px; }
+  aside { padding: 15px 20px 22px; background: var(--sidebar); border-left: 1px solid var(--line); }
+
+  h2 {
+    font-size: 9.5px; font-weight: 800; text-transform: uppercase; letter-spacing: 1.4px;
+    color: var(--accent); padding-bottom: 3px; margin-bottom: 9px;
+    border-bottom: 1.5px solid var(--line);
+  }
+  section { margin-bottom: 15px; }
+  .summary { color: #2b3340; font-size: 10.4px; }
+
+  .job { margin-bottom: 11px; }
+  .job:last-child { margin-bottom: 0; }
+  .job .top { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; }
+  .job .co { font-weight: 700; font-size: 11px; }
+  .job .dates { font-size: 9px; color: var(--muted); font-weight: 600; white-space: nowrap; }
+  .job .title { color: var(--accent-dark); font-weight: 600; font-size: 9.8px; margin: 1px 0 4px; }
+  ul { list-style: none; }
+  ul li { position: relative; padding-left: 12px; margin-bottom: 3px; color: #333b47; }
+  ul li::before { content: ""; position: absolute; left: 2px; top: 6px; width: 3.5px; height: 3.5px; border-radius: 50%; background: var(--accent); }
+
+  /* Sidebar blocks */
+  .skill-group { margin-bottom: 8px; }
+  .skill-group .lbl { font-weight: 700; font-size: 9.2px; color: var(--ink); }
+  .skill-group .val { font-size: 9.4px; color: var(--muted); }
+  .aside-item { margin-bottom: 7px; }
+  .aside-item .a1 { font-weight: 700; font-size: 9.6px; }
+  .aside-item .a2 { font-size: 9px; color: var(--muted); }
+  .cert li, .edu .a2 { font-size: 9.2px; }
+  .tag { display: inline-block; background: #fff; border: 1px solid var(--line); color: #33404f; border-radius: 4px; padding: 1.5px 6px; margin: 0 3px 3px 0; font-size: 8.8px; }
+</style>
+</head>
+<body>
+<div class="page">
+  <header>
+    <div class="name">KIRAN <span>RAJ R</span></div>
+    <div class="role">Cloud Platform &amp; DevOps Engineer — Solutioning &amp; Systems Design</div>
+    <div class="contact">
+      <span><b>Email</b> kautomate@gmail.com</span><span class="sep">|</span>
+      <span><b>Phone</b> +31 649986787</span><span class="sep">|</span>
+      <span><b>Location</b> Lelystad, Netherlands</span><span class="sep">|</span>
+      <span><b>Nationality</b> Indian</span><br>
+      <span style="display:inline-block;margin-top:3px"><b>Portfolio</b> kiranchilledout.github.io/markdown-portfolio</span><span class="sep">|</span>
+      <span><b>GitHub</b> github.com/kiranchilledout</span>
+    </div>
+  </header>
+
+  <div class="body">
+    <main>
+      <section>
+        <h2>Profile</h2>
+        <p class="summary">Cloud platform &amp; DevOps engineer with 13+ years automating and architecting
+        Microsoft&nbsp;Azure infrastructure. I focus on <b>solutioning and systems design</b> — turning
+        repetitive, error-prone cloud operations into safe, self-service, reviewable Infrastructure-as-Code
+        platforms, from identity-gated CI/CD to AI infrastructure with end to end Observability. I also focus on
+         developer experience  workflows.</p>
+      </section>
+
+      <section>
+        <h2>Experience</h2>
+
+        <div class="job">
+          <div class="top"><span class="co">Nebius</span><span class="dates">Dec 2024 – Present</span></div>
+          <div class="title">Systems Engineer</div>
+          <ul>
+            <li>Lead solutioning and systems design for internal cloud platforms — multi-stack Terraform
+              landing zones with least-privilege identity isolation and human-reviewed change gates.</li>
+            <li>Built self-service platform onboarding: a declarative manifest provisions a fully
+              network-segmented, identity-scoped team environment end-to-end through CI/CD.</li>
+            <li>Designed and automated <b>Entra application CI/CD</b> — app registrations, app roles and
+              OAuth wiring delivered as code through pipelines.</li>
+            <li>Delivered <b>Access Package CI/CD</b> — Entra ID Governance access packages managed and
+              shipped as code.</li>
+            <li>Architected <b>AI infrastructure</b> — an AI landing zone and MCP (Model Context Protocol)
+              servers published behind a shared API-management gateway with enterprise-identity-gated OAuth.</li>
+            <li>Built developer <b>self-service portals</b> for common cloud/IT workflows.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="top"><span class="co">Tesla</span><span class="dates">Jan 2024 – Dec 2024</span></div>
+          <div class="title">Senior Software Engineer</div>
+          <ul>
+            <li>Built an end-to-end automated validation pipeline for private-cloud data centre builds using
+              PowerShell, Pester and GitHub Actions.</li>
+            <li>Automated proactive detection of critical configuration drift — IP mismatches, NVMe provisioning
+              errors and cluster inconsistencies — turning manual discovery into one-click verification.</li>
+            <li>Enabled data centre engineers to self-validate builds before handoff, eliminating late-stage
+              rework and accelerating time-to-production.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="top"><span class="co">Capgemini <span style="font-weight:500;color:var(--muted)">(Tata Steel)</span></span><span class="dates">Mar 2022 – Jan 2024</span></div>
+          <div class="title">Cloud DevOps Engineer — Senior Consultant</div>
+          <ul>
+            <li>Designed and implemented Azure infrastructure using Infrastructure-as-Code (Bicep, ARM) and
+              zero-touch CI/CD pipelines for streamlined, automated deployments.</li>
+            <li>Established secure network access with Private Links, VNet integration and Managed Identities;
+              hands-on with AD and Microsoft Entra.</li>
+            <li>Architected infrastructure for cutting-edge workloads — Azure OpenAI, Azure Machine Learning,
+              databases, Kubernetes, Azure Container Registry and App Services.</li>
+            <li>Delivered in a Scrum/Agile model contributing to efficient, collaborative delivery cycles.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="top"><span class="co">Amadeus Software Labs</span><span class="dates">2018 – Feb 2022</span></div>
+          <div class="title">Automation Expert — Member of Technical Staff</div>
+          <ul>
+            <li>Architected and deployed Citrix infrastructure on Azure Cloud with DevOps strategies and
+              Infrastructure-as-Code.</li>
+            <li>Designed and deployed automated configuration management across server estates.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="top"><span class="co">Cerner Healthcare</span><span class="dates">2015 – 2018</span></div>
+          <div class="title">Automation — Senior Software Engineer</div>
+          <ul>
+            <li>Built PowerShell automation and GUI self-service tools for large-scale Citrix migrations.</li>
+            <li>Designed and deployed Citrix farms in a data-critical healthcare environment.</li>
+          </ul>
+        </div>
+
+        <div class="job">
+          <div class="top"><span class="co">IBM <span style="font-weight:500;color:var(--muted)">(via Artech)</span></span><span class="dates">2014 – 2015</span></div>
+          <div class="title">System Engineer — Automation</div>
+          <ul>
+            <li>Operated one of the world's largest Citrix environments — 32+ farms, 6000+ servers — in a
+              data-critical healthcare setting; PowerShell automation, mentored by industry experts.</li>
+          </ul>
+        </div>
+      </section>
+    </main>
+
+    <aside>
+      <section>
+        <h2>Core Skills</h2>
+        <div class="skill-group"><span class="lbl">Cloud &amp; IaC</span><br><span class="val">Azure, Terraform, Bicep, ARM, AzAPI</span></div>
+        <div class="skill-group"><span class="lbl">CI/CD &amp; Platforms</span><br><span class="val">TeamCity, GitLab CI, Azure DevOps, GitHub Actions</span></div>
+        <div class="skill-group"><span class="lbl">Identity &amp; Security</span><br><span class="val">Entra ID (OAuth2 / OIDC, App Roles, Access Packages), Key Vault, Private Endpoints</span></div>
+        <div class="skill-group"><span class="lbl">Networking</span><br><span class="val">Hub-and-spoke, Azure Firewall, App Gateway / WAF, Private DNS</span></div>
+        <div class="skill-group"><span class="lbl">AI &amp; Apps</span><br><span class="val">Azure Container Apps, API Management, MCP, Azure OpenAI / ML</span></div>
+        <div class="skill-group"><span class="lbl">Languages</span><br><span class="val">PowerShell, Python, TypeScript, Bash</span></div>
+      </section>
+
+      <section>
+        <h2>Certifications</h2>
+        <ul class="cert">
+          <li>HashiCorp Certified — Terraform Associate</li>
+          <li>Microsoft Certified — Azure Administrator (AZ-104)</li>
+          <li>Microsoft — Azure Fundamentals (AZ-900)</li>
+          <li>Microsoft — Azure AI Fundamentals (AI-900)</li>
+          <li>Pluralsight — PowerShell Expert</li>
+          <li>Citrix Certified Expert</li>
+        </ul>
+      </section>
+
+      <section class="edu">
+        <h2>Education</h2>
+        <div class="aside-item">
+          <div class="a1">Bachelor of Engineering</div>
+          <div class="a2">Electronics &amp; Communication — VTU University</div>
+        </div>
+      </section>
+
+      <section>
+        <h2>Interests</h2>
+        <div>
+          <span class="tag">Web Development</span>
+          <span class="tag">Home-lab / DIY</span>
+          <span class="tag">Guitar</span>
+        </div>
+      </section>
+    </aside>
+  </div>
+</div>
+</body>
+</html>
